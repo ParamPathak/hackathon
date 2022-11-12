@@ -2,15 +2,18 @@ import React,{  useState } from "react";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { db, storage } from "../firebase";
 import { doc, setDoc } from "firebase/firestore";
-
+import axios from "react-axios"
 
 const Addcomplain = () => {
 
   const [imageUpload, setImageUpload] = useState(null);
   const [text_1, setTx] = useState("");
   const [text_2, setTx2] = useState("");
-  const [text_3, setTx3] = useState("");
 
+  const getLabel = async () => {
+    const res = await axios.get(`http://localhost:5000/`);
+    console.log(res.data)
+  }
 
   const uploadFile = () => {
     const date = new Date()
@@ -21,14 +24,16 @@ const Addcomplain = () => {
         await setDoc(doc(db, "complain", `${date}`), {
           id: date,
           name : text_1,
-          lol : text_2,
-          sd : text_3,
+          discribe : text_2,
+          status : "Work in progress",
           photoURL: downloadURL,
           label: "",
         });
       });
       
     });
+
+    getLabel()    
   };
 
   return (
@@ -43,7 +48,6 @@ const Addcomplain = () => {
       />
         <input type="text" onChange={(e) => setTx(e.target.value)}/>
         <input type="text" onChange={(e) => setTx2(e.target.value)}/>
-        <input type="text" onChange={(e) => setTx3(e.target.value)}/>
         <button onClick={uploadFile}>upload</button>
 
     </div>

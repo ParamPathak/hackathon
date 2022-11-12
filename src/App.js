@@ -6,6 +6,10 @@ import {BrowserRouter,Routes, Route, Navigate} from "react-router-dom";
 import { useUserAuth } from "./context/AuthContext";
 import Addcomplain from "./pags/Addcomplain";
 import { Showcomplaint } from "./pags/Showcomplain";
+//import 'bootstrap/scss/bootstrap.scss'
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
 function App() {
   const { currentUser } = useUserAuth();
   
